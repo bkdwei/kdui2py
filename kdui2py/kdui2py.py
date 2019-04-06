@@ -7,25 +7,27 @@ import sys
 import optparse
 from os import walk,listdir
 from os.path import expanduser,dirname,join,splitext,basename
-from PyQt5.QtGui import QTextCursor
+from PyQt5.QtGui import QTextCursor, QIcon
 from PyQt5.uic import loadUi
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import  QWidget,QApplication,QFileDialog, QMessageBox
 from PyQt5.uic.driver import Driver
 from .fileutil import get_file_realpath
+from .kdui2py_ui import Ui_Form
 
-class kdui2py(QWidget):
+class kdui2py(QWidget,Ui_Form):
 
     def __init__ (self):
         super().__init__()
-        loadUi(get_file_realpath("kdui2py.ui"), self)
+        self.setupUi(self)
+        self.setWindowIcon(QIcon(get_file_realpath("logo.jpg")))
         self.last_dir = None
     @pyqtSlot()
     def on_pb_convert_single_file_clicked(self):
         seleted_file,_ = QFileDialog.getOpenFileName(self, '转换单个文件', self.get_last_dir(), '*.ui', '')
         self.last_dir = dirname(seleted_file)
         output_file = self.convert_single_file(seleted_file)
-        self.tb_result.append("转换成功，{} -> {}".format(seleted_file, output_file))
+        self.tb_result.append("转换成功，{} -> {}".format(basename(seleted_file), output_file))
         self.tb_result.moveCursor(QTextCursor.End)
         self.tb_result.append("\n")
 
@@ -90,8 +92,8 @@ class kdui2py(QWidget):
             args =filename
             driver = Driver(opts,args)
             try:
-                exit_status = driver.invoke()
-                print(filename,output_file,exit_status)
+                driver.invoke()
+#                 print(filename,output_file,exit_status)
 #                 QMessageBox.information(self, "转换成功", str(exit_status), QMessageBox.Ok)
                 return output_file
             except IOError as e:

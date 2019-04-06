@@ -11,7 +11,7 @@ with open("README.md", "r",encoding="utf-8") as fh:
 setup(
 #     固定部分
     name="kdui2py",
-    version="1.0.1",
+    version="1.0.0",
     author="bkdwei",
     author_email="bkdwei@163.com",
     maintainer="韦坤东",
@@ -30,14 +30,14 @@ setup(
 
 #     可变部分
     description="",
-    keywords=("qt ui file","converter"),
+    keywords=("qt ui file","converter","UI文件转换器"),
 #   see  https://pypi.org/classifiers/
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Environment :: X11 Applications :: Qt",
         "Intended Audience :: End Users/Desktop",
         "Natural Language :: Chinese (Simplified)",
-        "Topic :: System :: Filesystems",
+        "Topic :: Software Development :: Code Generators",
         "Programming Language :: Python :: 3",
         " License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
         "Operating System :: POSIX",
